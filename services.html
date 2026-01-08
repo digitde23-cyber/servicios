@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Servicios | Tu Tienda</title>
+  <meta name="description" content="Servicios digitales y soporte rápido por WhatsApp." />
+  <style>
+    :root{
+      --bg:#0b1020; --card:#101a33; --card2:#0f1730;
+      --txt:#e9eefc; --muted:#a8b3d6;
+      --brand:#6aa6ff; --brand2:#7c5cff; --ok:#1dd1a1; --warn:#ffcc66;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --r:18px;
+      --max:1100px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--font); color:var(--txt);
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(122,92,255,.35), transparent 60%),
+                  radial-gradient(900px 500px at 90% 0%, rgba(106,166,255,.30), transparent 55%),
+                  linear-gradient(180deg, #070a14, var(--bg));
+      min-height:100vh;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 48px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border:1px solid var(--border); border-radius:999px;
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(10px);
+      font-size:13px; color:var(--muted);
+    }
+    .dot{width:8px;height:8px;border-radius:99px;background:var(--ok); box-shadow:0 0 0 4px rgba(29,209,161,.15)}
+    .hero{
+      border:1px solid var(--border);
+      background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-radius:calc(var(--r) + 8px);
+      padding:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:-40px -40px auto auto;
+      width:240px; height:240px;
+      background: radial-gradient(circle at 30% 30%, rgba(106,166,255,.35), transparent 60%);
+      transform: rotate(20deg);
+      pointer-events:none;
+    }
+    .heroGrid{display:grid; grid-template-columns: 1.2fr .8fr; gap:18px}
+    @media (max-width:860px){ .heroGrid{grid-template-columns:1fr} }
+    .title{margin:0; font-size:28px; letter-spacing:-.4px}
+    .sub{margin:8px 0 0; color:var(--muted); line-height:1.45}
+    .profile{
+      display:flex; gap:14px; align-items:center; padding:14px;
+      border:1px solid var(--border); border-radius:var(--r);
+      background: rgba(16,26,51,.55);
+    }
+    .avatar{
+      width:52px;height:52px;border-radius:14px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      display:grid; place-items:center;
+      font-weight:800;
+      box-shadow: 0 12px 30px rgba(106,166,255,.20);
+      flex:0 0 auto;
+    }
+    .pname{margin:0; font-weight:800}
+    .pmeta{margin:4px 0 0; color:var(--muted); font-size:13px}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color:var(--txt);
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s transform, .2s opacity, .2s background;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
+    .btnPrimary{
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      border:0;
+      box-shadow: 0 16px 30px rgba(124,92,255,.25);
+    }
+    .btnPrimary:hover{opacity:.95}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    @media (max-width:980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width:620px){ .grid{grid-template-columns: 1fr;} }
+    .card{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(16,26,51,.75), rgba(15,23,48,.55));
+      border-radius:var(--r);
+      padding:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:auto -80px -120px auto;
+      width:220px; height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(29,209,161,.18), transparent 65%);
+      transform: rotate(10deg);
+      pointer-events:none;
+    }
+    .kicker{
+      font-size:12px; color:var(--muted);
+      display:flex; justify-content:space-between; gap:12px;
+      margin-bottom:10px;
+    }
+    .tag{
+      padding:4px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .h3{margin:0; font-size:18px}
+    .desc{margin:8px 0 0; color:var(--muted); line-height:1.45; font-size:14px}
+    .priceRow{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-top:14px}
+    .price{font-size:22px; font-weight:900; letter-spacing:-.2px}
+    .per{color:var(--muted); font-size:12px; margin-left:8px; font-weight:700}
+    .mini{color:var(--muted); font-size:12px; margin-top:10px}
+    .tools{
+      margin-top:18px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .search{
+      flex:1 1 320px;
+      display:flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.05);
+    }
+    .search input{
+      border:0; outline:0; background:transparent; color:var(--txt);
+      width:100%; font-size:14px;
+    }
+    select{
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color:var(--txt);
+      outline:0;
+      font-weight:700;
+    }
+    option{background:#0b1020}
+    .section{
+      margin-top:22px;
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      background: rgba(255,255,255,.04);
+      padding:16px;
+    }
+    .secTitle{margin:0; font-size:16px}
+    .faq{margin-top:10px; display:grid; gap:10px}
+    details{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:10px 12px;
+      background: rgba(16,26,51,.45);
+    }
+    summary{cursor:pointer; font-weight:800}
+    details p{margin:8px 0 0; color:var(--muted); line-height:1.45}
+    .footer{margin-top:22px; color:var(--muted); font-size:13px; text-align:center}
+    .floating{
+      position:fixed; right:18px; bottom:18px; z-index:50;
+      display:flex; gap:10px; flex-direction:column; align-items:flex-end;
+    }
+    .fab{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-radius:999px;
+      border:0;
+      background: #25D366;
+      color:#062a13;
+      font-weight:900;
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      cursor:pointer;
+      transition:.2s transform, .2s opacity;
+    }
+    .fab:hover{transform: translateY(-2px); opacity:.95}
+    .note{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.25);
+      color:var(--muted);
+      font-size:12px;
+      max-width:320px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="badge"><span class="dot"></span> Atención rápida • Soporte por WhatsApp</div>
+      <div class="badge">📍 Paraguay • Horario: 09:00–22:00</div>
+    </div>
+
+    <div class="hero">
+      <div class="heroGrid">
+        <div>
+          <h1 class="title">Servicios digitales</h1>
+          <p class="sub">
+            Elegí el servicio, tocá <b>Pedir</b> y se arma el mensaje automático para WhatsApp.
+            <br/>Respuesta rápida y entrega ordenada.
+          </p>
+
+          <div class="actions">
+            <a class="btn btnPrimary" id="btnWhatsappTop" href="#" rel="noopener">📲 WhatsApp</a>
+            <button class="btn" id="btnCopy">📋 Copiar link</button>
+            <a class="btn" href="#faq">❓ Preguntas</a>
+          </div>
+          <div class="mini">Tip: Podés editar nombre, precios y WhatsApp en el código (arriba en “CONFIG”).</div>
+        </div>
+
+        <div class="profile">
+          <div class="avatar" id="avatar">DG</div>
+          <div>
+            <p class="pname" id="resellerName">DIGI PY • Reseller</p>
+            <p class="pmeta">
+              <span id="resellerUser">@tu_usuario</span> •
+              <span id="resellerEmail">ventas@tudominio.com</span>
+            </p>
+            <p class="pmeta">✅ Entrega rápida • 🔒 Soporte • ⚡ Renovaciones</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools">
+        <div class="search">
+          🔎 <input id="q" placeholder="Buscar servicio (ej: edición, música, premium, etc.)" />
+        </div>
+        <select id="cat">
+          <option value="all">Todas las categorías</option>
+          <option value="edicion">Edición</option>
+          <option value="musica">Música</option>
+          <option value="suscripciones">Suscripciones</option>
+          <option value="otros">Otros</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <div class="grid" id="grid"></div>
+
+    <!-- FAQ -->
+    <div class="section" id="faq">
+      <h2 class="secTitle">Preguntas frecuentes</h2>
+      <div class="faq">
+        <details>
+          <summary>¿Cómo hago el pedido?</summary>
+          <p>Elegí un servicio y tocá “Pedir por WhatsApp”. Te abre WhatsApp con el mensaje listo.</p>
+        </details>
+        <details>
+          <summary>¿Cuánto tarda la entrega?</summary>
+          <p>Depende del servicio. En general la entrega es rápida y te confirmamos por WhatsApp.</p>
+        </details>
+        <details>
+          <summary>¿Cómo son las renovaciones?</summary>
+          <p>Te avisamos antes del vencimiento (si querés) y renovamos cuando confirmás el pago.</p>
+        </details>
+        <details>
+          <summary>¿Puedo pedir soporte?</summary>
+          <p>Sí. Escribinos por WhatsApp con tu correo/ID de compra y te ayudamos.</p>
+        </details>
+      </div>
+    </div>
+
+    <div class="footer">
+      © <span id="year"></span> <span id="brandName">Tu Tienda</span> • Hecho para ventas rápidas por WhatsApp
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp -->
+  <div class="floating">
+    <div class="note">¿Listo? Tocá acá y te atendemos al toque.</div>
+    <button class="fab" id="btnWhatsappFloat">💬 WhatsApp</button>
+  </div>
+
+  <script>
+    // =========================
+    // CONFIG (EDITÁ ESTO)
+    // =========================
+    const CONFIG = {
+      brandName: "DIGI PY",
+      resellerName: "DIGI PY • Reseller",
+      resellerUser: "@digital_py",
+      resellerEmail: "dailypremium202@gmail.com",
+      avatarText: "DG",
+      // WhatsApp en formato internacional: Paraguay +595...
+      whatsappNumber: "595000000000",
+      whatsappHello: "Hola! Quiero pedir un servicio 🙂",
+      // URL pública de tu página (para copiar). Si no tenés todavía, dejá vacío.
+      publicUrl: "https://tusitio.com/services.html",
+      currency: "Gs",
+      services: [
+        {
+          id:"svc1",
+          cat:"suscripciones",
+          tag:"Más vendido",
+          title:"Plan Mensual • 1 dispositivo",
+          desc:"Activación rápida + soporte. Ideal para uso personal.",
+          price:"20.000",
+          period:"mes",
+          extra:"Incluye garantía del plan."
+        },
+        {
+          id:"svc2",
+          cat:"suscripciones",
+          tag:"Familiar",
+          title:"Plan Mensual • 3 dispositivos",
+          desc:"Para varios dispositivos. Entrega rápida.",
+          price:"35.000",
+          period:"mes",
+          extra:"Soporte por WhatsApp."
+        },
+        {
+          id:"svc3",
+          cat:"suscripciones",
+          tag:"Extendido",
+          title:"Plan 6 meses",
+          desc:"Plan extendido con garantía por el tiempo adquirido.",
+          price:"150.000",
+          period:"6 meses",
+          extra:"Recomendado para no renovar cada mes."
+        },
+        {
+          id:"svc4",
+          cat:"edicion",
+          tag:"Pro",
+          title:"Edición de video (pack)",
+          desc:"Plantillas, efectos y textos animados (según pack).",
+          price:"A consultar",
+          period:"",
+          extra:"Enviá tu idea y te pasamos opciones."
+        },
+        {
+          id:"svc5",
+          cat:"musica",
+          tag:"Rápido",
+          title:"Música para tus videos",
+          desc:"Te ayudamos a conseguir tracks y armar tu librería.",
+          price:"A consultar",
+          period:"",
+          extra:"Compatible con tu flujo de edición."
+        },
+        {
+          id:"svc6",
+          cat:"otros",
+          tag:"Soporte",
+          title:"Soporte y configuración",
+          desc:"Te ayudamos con activaciones, ajustes y dudas.",
+          price:"0",
+          period:"",
+          extra:"Incluido para clientes."
+        },
+      ]
+    };
+
+    // =========================
+    // UI
+    // =========================
+    const $ = (s)=>document.querySelector(s);
+    const grid = $("#grid");
+    const q = $("#q");
+    const cat = $("#cat");
+
+    $("#brandName").textContent = CONFIG.brandName;
+    $("#resellerName").textContent = CONFIG.resellerName;
+    $("#resellerUser").textContent = CONFIG.resellerUser;
+    $("#resellerEmail").textContent = CONFIG.resellerEmail;
+    $("#avatar").textContent = CONFIG.avatarText;
+    $("#year").textContent = new Date().getFullYear();
+
+    const waLink = (text) => {
+      const base = `https://wa.me/${CONFIG.whatsappNumber}`;
+      const msg = encodeURIComponent(text);
+      return `${base}?text=${msg}`;
+    };
+
+    function serviceCard(svc){
+      const price = svc.price === "0"
+        ? "Gratis"
+        : (svc.price === "A consultar" ? "A consultar" : `${CONFIG.currency} ${svc.price}`);
+      const period = svc.period ? `<span class="per">/ ${svc.period}</span>` : "";
+      return `
+        <div class="card" data-cat="${svc.cat}" data-text="${(svc.title+' '+svc.desc+' '+svc.tag).toLowerCase()}">
+          <div class="kicker">
+            <span>${svc.cat.toUpperCase()}</span>
+            <span class="tag">${svc.tag}</span>
+          </div>
+          <h3 class="h3">${svc.title}</h3>
+          <p class="desc">${svc.desc}</p>
+
+          <div class="priceRow">
+            <div>
+              <div class="price">${price}${period}</div>
+              <div class="mini">${svc.extra || ""}</div>
+            </div>
+            <button class="btn btnPrimary" data-order="${svc.id}">📲 Pedir</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function render(){
+      grid.innerHTML = CONFIG.services.map(serviceCard).join("");
+      bindOrderButtons();
+      applyFilters();
+    }
+
+    function bindOrderButtons(){
+      grid.querySelectorAll("[data-order]").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const id = btn.getAttribute("data-order");
+          const svc = CONFIG.services.find(x=>x.id===id);
+          const msg =
+            `${CONFIG.whatsappHello}\n\n`+
+            `• Servicio: ${svc.title}\n`+
+            `• Precio: ${svc.price === "A consultar" ? "A consultar" : (svc.price==="0" ? "Gratis" : (CONFIG.currency+" "+svc.price))}\n`+
+            `• Detalles: ${svc.extra || "-"}\n\n`+
+            `Mi nombre es: ____`;
+          window.open(waLink(msg), "_blank", "noopener");
+        });
+      });
+    }
+
+    function applyFilters(){
+      const term = (q.value || "").trim().toLowerCase();
+      const c = cat.value;
+      grid.querySelectorAll(".card").forEach(card=>{
+        const okCat = (c==="all") || (card.dataset.cat===c);
+        const okTxt = !term || card.dataset.text.includes(term);
+        card.style.display = (okCat && okTxt) ? "" : "none";
+      });
+    }
+
+    q.addEventListener("input", applyFilters);
+    cat.addEventListener("change", applyFilters);
+
+    $("#btnWhatsappTop").addEventListener("click", (e)=>{
+      e.preventDefault();
+      window.open(waLink(CONFIG.whatsappHello), "_blank", "noopener");
+    });
+    $("#btnWhatsappFloat").addEventListener("click", ()=>{
+      window.open(waLink(CONFIG.whatsappHello), "_blank", "noopener");
+    });
+
+    $("#btnCopy").addEventListener("click", async ()=>{
+      const url = CONFIG.publicUrl || window.location.href;
+      try{
+        await navigator.clipboard.writeText(url);
+        alert("Link copiado ✅");
+      }catch(err){
+        prompt("Copiá el link:", url);
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
